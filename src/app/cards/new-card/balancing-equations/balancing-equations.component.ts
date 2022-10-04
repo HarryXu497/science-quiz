@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 
 interface IForm {
@@ -21,6 +21,9 @@ export class BalancingEquationsComponent implements OnInit {
 
 	@Input() tags!: (string | null)[];
 	@Input() subject!: string | null;
+
+	@Output() formReset = new EventEmitter<void>();
+	@Output() submission = new EventEmitter<void>();
 	
 	ngOnInit(): void {
 		this.form = this.fb.group({
@@ -37,7 +40,7 @@ export class BalancingEquationsComponent implements OnInit {
 	}
 
 	onSubmit() {
-
+		this.submission.emit();
 	}
 
 	get explaination() {

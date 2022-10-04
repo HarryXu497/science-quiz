@@ -22,6 +22,7 @@ export class MultipleChoiceComponent implements OnInit {
 	@Input() subject!: string | null;
 
 	@Output() formReset = new EventEmitter<void>();
+	@Output() submission = new EventEmitter<void>();
 
 	constructor(
 		private fb: FormBuilder,
@@ -54,7 +55,7 @@ export class MultipleChoiceComponent implements OnInit {
 		this.answer.setValue(this.getKey(index))
 	}
 
-	onSubmit() {
+	async onSubmit() {
 		const choices: Choices = {
 			'A': this.choices.value[0]!,
 			'B': this.choices.value[1]!,
@@ -62,7 +63,7 @@ export class MultipleChoiceComponent implements OnInit {
 			'D': this.choices.value[3]!,
 		}
 
-		this.questionsService.addMultipleChoiceQuestion(QuestionsService.createMultipleChoiceQuestion({
+		await this.questionsService.addMultipleChoiceQuestion(QuestionsService.createMultipleChoiceQuestion({
 			question: this.question.value!,
 			subject: this.subject!.toLowerCase(),
 			tags: (this.tags as string[]).map(s => s.toLowerCase()),
@@ -70,6 +71,8 @@ export class MultipleChoiceComponent implements OnInit {
 			answer: this.answer.value!,
 			choices: choices
 		}))
+
+		this.submission.emit();
 	}
 
 	onReset(...elements: HTMLTextAreaElement[]) {

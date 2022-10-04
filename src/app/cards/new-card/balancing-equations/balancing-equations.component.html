@@ -1,16 +1,20 @@
 <p class="equation__label"></p>
 <form class="equation__form" [formGroup]="form" (ngSubmit)="onSubmit()">
 	<div class="equation__questions">
-		<span *ngFor="let reactant of [].constructor(reactants.length); let i = index; let isLast = last" formArrayName="reactants">
-			<input type="number" [id]="'reactant-' + i" class="equation__question__input" [formControlName]="i">
-			<input type="text">
-			<span *ngIf="!isLast">$+$</span>
-		</span>
+		<div class="equation__questions__reactants">
+			<span *ngFor="let reactant of [].constructor(reactants.length); let i = index; let isLast = last" formArrayName="reactants">
+				<input type="number" [id]="'reactant-' + i" class="equation__question__input" [formControlName]="i">
+				<input type="text">
+				<span *ngIf="!isLast">$+$</span>
+			</span>
+		</div>
 		<span mathjax="$\rightarrow$"></span>
-		<span *ngFor="let product of [].constructor(products.length); let i = index" formArrayName="products">
-			<input type="number" [id]="'product-' + i" class="equation__question__input" [formControlName]="i">
-			<input type="text">
-		</span>
+		<div class="equation__questions__products">
+			<span *ngFor="let product of [].constructor(products.length); let i = index" formArrayName="products">
+				<input type="number" [id]="'product-' + i" class="equation__question__input" [formControlName]="i">
+				<input type="text">
+			</span>
+		</div>
 	</div>
 	<div class="button__group">
 		<button type="submit" [disabled]="form.invalid">Submit</button>

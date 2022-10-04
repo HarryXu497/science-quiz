@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { QuestionType } from './../../question.model';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface IForm {
 	type: FormControl<QuestionType | null>;
@@ -16,7 +17,7 @@ interface IForm {
 export class NewCardComponent implements OnInit {
 	constructor(
 		private fb: FormBuilder,
-		private renderer: Renderer2,	
+		private router: Router,	
 	) {}
 
 	choices: QuestionType[] = ['multiple-choice', 'checkbox', 'balancing-chemical-equations']
@@ -44,6 +45,10 @@ export class NewCardComponent implements OnInit {
 		this.form.reset();
 		this.tags.clear();
 		this.form.controls.type.setValue(this.choices[0])
+	}
+
+	onSubmit() {
+		this.router.navigate(["/questions"]);
 	}
 
 	get tags() {

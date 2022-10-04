@@ -33,6 +33,10 @@ export interface BalancingChemicalEquationsQuestion extends Question {
 	reactionType: 'heated' | 'yields' | 'reversible';
 }
 
+export interface Meta {
+	createdAt: Object;
+}
+
 export interface Choices {
 	A: string;
 	B: string;
