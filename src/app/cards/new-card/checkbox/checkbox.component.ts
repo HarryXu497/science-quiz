@@ -26,6 +26,7 @@ export class CheckboxComponent implements OnInit {
 	@Input() subject!: string | null;
 
 	@Output() formReset = new EventEmitter<void>();
+	@Output() submission = new EventEmitter<void>();
 	
 	form!: FormGroup<IForm>
 
@@ -55,7 +56,7 @@ export class CheckboxComponent implements OnInit {
 		}
 	}
 
-	onSubmit() {
+	async onSubmit() {
 		const choices: Choices = {
 			'A': this.choices.value[0]!,
 			'B': this.choices.value[1]!,
@@ -63,7 +64,7 @@ export class CheckboxComponent implements OnInit {
 			'D': this.choices.value[3]!,
 		}
 
-		this.questionsService.addCheckboxQuestion(QuestionsService.createCheckboxQuestion({
+		await this.questionsService.addCheckboxQuestion(QuestionsService.createCheckboxQuestion({
 			question: this.question.value!,
 			subject: this.subject!.toLowerCase(),
 			tags: (this.tags as string[]).map(s => s.toLowerCase()),
@@ -71,6 +72,8 @@ export class CheckboxComponent implements OnInit {
 			answers: this.answers.value as MultipleChoiceQuestionChoices[],
 			choices: choices
 		}))
+
+		this.submission.emit();
 	}
 
 	onInput(element: HTMLTextAreaElement) {
