@@ -1,0 +1,70 @@
+@use "sass:color";
+@use "./colors" as colors;
+
+@mixin form-input($border: 1px solid black, $font-size: 1rem) {
+	// Spacing
+	padding: 0.5rem;
+
+	// Border
+	border: $border;
+	border-radius: 2px;
+
+	// font-size
+	font-size: $font-size;
+
+	// Removing default focus appearance
+	&:focus {
+		// Border
+		border: $border;
+
+		outline: none;
+	}
+
+	// Angular form state styling
+	&.ng-dirty {
+		&.ng-valid {
+			outline: 2px solid green;
+			border-color: transparent;
+
+			background-color: color.scale(green, $lightness: 96%);
+		}
+		&.ng-invalid {
+			outline: 2px solid colors.$clr-primary-800;
+			border-color: transparent;
+
+			background-color: color.scale(colors.$clr-primary-800, $lightness: 96%);
+		}
+	}	
+}
+
+@mixin button($clr: colors.$clr-primary-400) {
+    // Colors 
+    background-color: $clr;
+    
+    // Spacing
+    padding: 0.5rem 1rem;
+
+    // Border
+    border: none;
+    border-radius: 5px;
+
+	// Font
+	color: colors.$clr-light-200;
+	font-size: 1.125rem;
+	font-weight: bold;
+
+
+    &:hover {
+        background-color: color.scale($clr, $lightness: -15%);
+
+		cursor: pointer;
+    }
+	
+	&:disabled {
+		background-color: color.adjust($clr, $lightness: 25%);
+
+		&:hover {
+			cursor: auto;
+		}
+	}
+}

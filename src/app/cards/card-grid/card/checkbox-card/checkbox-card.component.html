@@ -1,0 +1,20 @@
+<ng-container *ngIf="answerStateService.isShowingQuestion then questionTemplate else answerTemplate"></ng-container>
+<ng-template #questionTemplate>
+	<p class="checkbox__question" for="checkbox__choices">{{ question.question }}</p>
+	<form class="checkbox__choices" [formGroup]="form" (ngSubmit)="onSubmit()">
+		<div formGroupName="answers">
+			<div
+				class="checkbox__choices__choice"
+				*ngFor="let choice of question.choices | keyvalue; let isLast = last; let i = index"
+				[class.show-border-bottom-color]="isLast"
+				[ngClass]="{'correct': correctAnswers[i] && answerStateService.isAnswered, 'incorrect': !correctAnswers[i] && answerStateService.isAnswered}">
+				<label [for]="'checkbox-' + i">{{ choice.value }}</label>
+				<input class="checkbox__choices__choice__checkbox" type="checkbox" [formControlName]="i" [id]="'checkbox-' + i" [readonly]="answerStateService.isAnswered">
+			</div>
+		</div>
+		<button class="checkbox__choices__submit" *ngIf="answerStateService.isUnanswered">Submit</button>
+	</form>
+</ng-template>
+<ng-template #answerTemplate>
+	<p class="checkbox__question" for="checkbox__choices">{{ question.explaination }}</p>
+</ng-template>

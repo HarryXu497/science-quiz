@@ -1,0 +1,29 @@
+<div class="new-card" [ngSwitch]="formType">
+	<div class="new-card__meta">
+		<form class="new-card__form" [formGroup]="form">
+			<div class="new-card__card-type">
+				<label for="card-type">Question Type</label>
+				<select id="card-type" class="card-type" formControlName="type">
+					<option *ngFor="let choice of choices" [value]="choice">{{ choice }}</option>
+				</select>
+			</div>
+			<div class="new-card__subject">
+				<label for="subject">Subject</label>
+				<input type="text" id="subject" formControlName="subject">
+			</div>
+			<div class="new-card__tags">
+				<label for="tags">Tags</label>
+				<div class="button-group">
+					<input type="text" id="tags" #tagInput>
+					<button type="button" (click)="addTag(tagInput)">Add</button>
+				</div>
+			</div>
+		</form>
+		<div class="new-card__display">
+			<p class="new-card__display--tags" #tagsDisplay><span *ngFor="let tag of tags.value; let isLast = last">{{ '#' + tag }}{{ !isLast ? ',': '' }} </span></p>
+		</div>
+	</div>
+	<app-multiple-choice (formReset)="onReset()" *ngSwitchCase="'multiple-choice'" [tags]="tags.value" [subject]="subject.value"></app-multiple-choice>
+	<app-checkbox (formReset)="onReset()" *ngSwitchCase="'checkbox'" [tags]="tags.value" [subject]="subject.value"></app-checkbox>
+	<div class="new-card__state-color"></div>
+</div>

@@ -1,0 +1,26 @@
+<ng-container *ngIf="answerStateService.isShowingQuestion then questionTemplate else answerTemplate"></ng-container>
+<ng-template #questionTemplate>
+	<p class="equation__label" [mathjax]="question.question"></p>
+	<form class="equation__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+		<div class="equation__questions">
+			<span *ngFor="let reactant of question.reactants; let i = index; let isLast = last" formArrayName="reactants">
+				<input type="number" [id]="'reactant-' + i" class="equation__question__input" [formControlName]="i">
+				<label [for]="'reactant-' + i">
+					{{ reactant }}
+				</label>
+				<span *ngIf="!isLast">$+$</span>
+			</span>
+			<span>{{ '$\\rightarrow$' }}</span>
+			<span *ngFor="let product of question.products; let i = index" formArrayName="products">
+				<input type="number" [id]="'product-' + i" class="equation__question__input" [formControlName]="i">
+				<label [for]="'product-' + i">
+					{{ product }}
+				</label>
+			</span>
+		</div>
+		<button class="equation__question__submit" *ngIf="answerStateService.isUnanswered">Submit</button>
+	</form>
+</ng-template>
+<ng-template #answerTemplate>
+	<p class="equation__label">{{ question.explaination }}</p>
+</ng-template>

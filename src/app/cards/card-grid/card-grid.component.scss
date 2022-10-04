@@ -1,0 +1,62 @@
+@use "../../../styles.scss" as globals;
+
+.cards {
+	// Spacing
+	padding: 4rem 3rem;
+
+	// Grid
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2.5rem;
+}
+
+@include globals.media(globals.$media-laptop, 1600px) {
+	.cards {
+		// Spacing
+		padding: 4rem 9rem;
+
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@include globals.media-laptop {
+	.cards {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@include globals.media(globals.$media-tablet, 1124px) {
+	.cards {
+		// Spacing
+		padding: 4rem 16rem;
+
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+@include globals.media(globals.$media-tablet, 1056px) {
+	.cards {
+		// Spacing
+		padding: 4rem 8rem;
+
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+@include globals.media-tablet {
+	.cards {
+		// Spacing
+		padding: 1rem 1.5rem;
+
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+@include globals.media-mobile {
+	.cards {
+		// Spacing
+		padding: 1rem 1.5rem;
+
+		grid-template-columns: repeat(1, 1fr);
+	}
+}

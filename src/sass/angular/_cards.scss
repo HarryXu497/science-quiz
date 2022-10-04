@@ -1,0 +1,6 @@
+@mixin cardText {
+	--font-size-question: 1.25rem;
+
+	// Font
+	font-size: var(--font-size-question);
+}

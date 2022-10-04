@@ -1,0 +1,52 @@
+@use "../../../../styles.scss" as globals;
+
+.card {
+	// Position
+	position: relative;
+
+	// Color
+	background-color: globals.$clr-light-100;
+
+	// Sizing
+	aspect-ratio: 16 / 9;
+
+	// Spacing
+	padding: 1rem;
+
+	// Box Shadow
+	box-shadow: 0 0.25rem 1rem globals.$clr-box-shadow;
+
+	// Border
+	border-radius: 5px;
+
+	overflow: hidden;
+
+	.card__state-color {
+		// Position
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		
+		// Sizing
+		height: 1.5rem;
+
+		// Color
+		background-color: globals.$clr-primary-400;
+
+		&.correct {
+			background-color: globals.$clr-correct;
+		}
+
+		&.incorrect {
+			background-color: globals.$clr-incorrect;
+		}
+
+		// Content
+		content: "";
+	}
+
+	&.ng-animating * {
+		display: none;
+	}
+}

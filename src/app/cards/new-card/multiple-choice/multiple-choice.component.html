@@ -1,0 +1,26 @@
+<form [formGroup]="form" class="form" (ngSubmit)="onSubmit()">
+	<div>
+		<div class="form__question__choices">
+			<textarea class="form__question--question" type="text" formControlName="question" placeholder="Your Question Here" #formQuestion (input)="onInput(formQuestion)">
+		
+			</textarea>
+			<div class="form__question__choices__choice" [class.show-border-bottom-color]="isLast" *ngFor="let _ of [].constructor(4); let i = index; let isLast = last" formArrayName="choices">
+				<input type="text" [placeholder]="'Answer ' + i" [formControlName]="i">
+				<div (click)="onAnswerSelect(i)">
+					<svg *ngIf="answer.value !== getKey(i)" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 64 64" class="icon">
+						<circle cx="32" cy="32" r="32" fill="#3787c8" />
+					</svg>
+					<svg *ngIf="answer.value === getKey(i)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64" class="icon"><path d="M32,2C15.431,2,2,15.432,2,32c0,16.568,13.432,30,30,30c16.568,0,30-13.432,30-30C62,15.432,48.568,2,32,2z M25.025,50
+						l-0.02-0.02L24.988,50L11,35.6l7.029-7.164l6.977,7.184l21-21.619L53,21.199L25.025,50z" fill="#43a047"/></svg>
+				</div>
+			</div>
+		</div>
+		<textarea class="form__question--explaination" type="text" formControlName="explaination" placeholder="Your Explaination Here" #formExplaination (input)="onInput(formExplaination)">
+		
+		</textarea>
+	</div>
+	<div class="button__group">
+		<button type="submit" [disabled]="form.invalid">Submit</button>
+		<button type="reset" (click)="onReset(formQuestion, formExplaination)">Clear</button>
+	</div>
+</form>

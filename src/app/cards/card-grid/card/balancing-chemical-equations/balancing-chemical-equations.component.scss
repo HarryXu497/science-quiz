@@ -1,0 +1,40 @@
+@use "../../../../../styles.scss" as globals;
+
+.equation__label {
+	@include globals.cardText;
+	
+	// Margin
+	margin-bottom: 1rem;
+}
+
+.equation__form {
+	// Flexbox
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.equation__form .equation__questions {
+	// Flexbox
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	justify-content: center;
+
+	// Font
+	font-size: 1.25rem;
+}
+
+.equation__form .equation__question__input {
+	font-size: 1.125rem;
+	min-width: 0.5rem;
+	max-width: 2rem;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.equation__form .equation__question__submit {
+	@include globals.button;
+}

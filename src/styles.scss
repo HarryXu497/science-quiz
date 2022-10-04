@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+@forward "./sass/reset";
+@forward "./sass/angular";
+@forward "./sass/colors";
+@forward "./sass/mixins";
+@forward "./sass/responsive";
+@forward "./sass/typography";

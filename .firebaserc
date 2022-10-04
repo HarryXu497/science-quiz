@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "science-quiz-bd1dc": {
+      "hosting": {
+        "science-quiz": [
+          "science-quiz-bd1dc"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "science-quiz-bd1dc"
+  }
+}

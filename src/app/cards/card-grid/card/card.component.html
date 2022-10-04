@@ -1,0 +1,6 @@
+<div class="card" [ngSwitch]="type" [@answered]="answerShow">
+	<app-multiple-choice-card *ngSwitchCase="'multiple-choice'" [question]="question"></app-multiple-choice-card>
+	<app-checkbox-card *ngSwitchCase="'checkbox'" [question]="question"></app-checkbox-card>
+	<app-balancing-chemical-equations *ngSwitchCase="'balancing-chemical-equations'" [question]="question"></app-balancing-chemical-equations>
+	<div class="card__state-color" [ngClass]="{'incorrect': answerState === 'incorrect', 'correct': answerState === 'correct'}"></div>
+</div>

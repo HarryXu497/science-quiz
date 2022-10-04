@@ -1,0 +1,53 @@
+@use "../../../../../styles.scss" as globals;
+
+.multiple-choice__question {
+	@include globals.cardText;
+
+	// Margin
+	margin-bottom: 1rem;
+}
+
+.multiple-choice__choices .multiple-choice__choices__choice {
+	// Display
+	display: block;
+	
+	// Spacing
+	padding: 0.5rem 0.75rem;
+	
+	// Color
+	background-color: globals.$clr-light-300;
+
+	// Font
+	font-weight: bold;
+
+	// Border
+	border-top: 1px solid globals.$clr-text;
+	border-bottom: 1px solid transparent;
+
+	// Flexbox
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	// Mouse
+	&:hover {
+		cursor: pointer;
+	}
+
+	&.correct {
+		background-color: globals.$clr-correct;
+	}
+
+	&.incorrect {
+		background-color: globals.$clr-incorrect;
+	}
+
+	&.show-border-bottom-color {
+		border-bottom-color: globals.$clr-text;
+	}
+
+	.icon {
+		width: 1.25rem;
+	}	
+}

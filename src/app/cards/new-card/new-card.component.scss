@@ -1,0 +1,162 @@
+@use "../../../styles.scss" as globals;
+
+.new-card {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+
+	// Position
+	position: relative;
+
+	margin: 2rem auto;
+
+	// Color
+	background-color: globals.$clr-light-100;
+
+	// Sizing
+	max-width: 32rem;
+	min-height: 30.25rem;
+
+	// Spacing
+	padding: 1rem;
+
+	// Box Shadow
+	box-shadow: 0 0.25rem 1rem globals.$clr-box-shadow;
+
+	// Border
+	border-radius: 5px;
+
+	overflow: hidden;
+
+	.new-card__state-color {
+		// Position
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		
+		// Sizing
+		height: 1.5rem;
+
+		// Color
+		background-color: globals.$clr-primary-400;
+	}
+
+	&.ng-animating * {
+		display: none;
+	}
+}
+
+.new-card__meta {
+	display: flex;
+	flex-direction: row;
+}
+
+.new-card__form {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.new-card__display {
+	flex-grow: 1;
+	text-align: end;
+	font-weight: bold;
+
+	.new-card__display--tags {
+		font-style: italic;
+	}
+}
+
+.new-card__card-type {
+	// Position
+	position: relative;
+
+	> label {
+		display: block;
+	}
+
+	.card-type {
+		background-color: globals.$clr-accent-100;
+		border: 2px solid globals.$clr-accent-400;
+		font-size: 1rem;
+		color: globals.$clr-text;
+		padding: 0.25rem 0.125rem;
+		background-image: none;
+
+		// Border
+		border-radius: 2px;
+
+		&:focus {
+			outline: none;
+		}
+
+		option {
+			background-color: globals.$clr-accent-100;
+		}
+	}
+}
+
+.new-card__subject {
+		// Position
+		position: relative;
+
+		> label {
+			display: block;
+		}
+	
+		> input {
+			background-color: globals.$clr-accent-100;
+			border: 2px solid globals.$clr-accent-400;
+			font-size: 1rem;
+			color: globals.$clr-text;
+			padding: 0.25rem 0.125rem;
+			background-image: none;
+	
+			// Border
+			border-radius: 2px;
+	
+			&:focus {
+				outline: none;
+			}
+		}
+}
+
+.new-card__tags {
+	// Position
+	position: relative;
+
+	> label {
+		display: block;
+	}
+
+	input {
+		background-color: globals.$clr-accent-100;
+		border: 2px solid globals.$clr-accent-400;
+		font-size: 1rem;
+		color: globals.$clr-text;
+		padding: 0.25rem 0.125rem;
+		background-image: none;
+
+
+		// Border
+		border-radius: 2px;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	button {
+		background-color: globals.$clr-primary-300;
+		border: 2px solid globals.$clr-primary-400;
+		font-size: 1rem;
+		color: white;
+	}
+
+	.button-group {
+		display: flex;
+		flex-direction: row;
+	}
+}

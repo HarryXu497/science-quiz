@@ -1,0 +1,113 @@
+@use "../../../../../styles.scss" as globals;
+@use "sass:color" as color;
+
+.checkbox__question {
+	@include globals.cardText;
+
+	// Margin
+	margin-bottom: 1rem;
+}
+
+.checkbox__choices .checkbox__choices__choice {
+	// Display
+	display: block;
+	
+	// Spacing
+	padding: 0.3rem 0.75rem;
+	
+	// Color
+	background-color: globals.$clr-light-300;
+
+	// Font
+	font-weight: bold;
+
+	// Border
+	border-top: 1px solid globals.$clr-text;
+	border-bottom: 1px solid transparent;
+
+	// Flexbox
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	// Mouse
+	&:hover {
+		cursor: pointer;
+	}
+
+	&.correct {
+		background-color: globals.$clr-correct;
+	}
+
+	&.incorrect {
+		background-color: globals.$clr-incorrect;
+	}
+
+	&.show-border-bottom-color {
+		border-bottom-color: globals.$clr-text;
+	}
+
+	.icon {
+		width: 1.25rem;
+	}	
+
+	.checkbox__choices__choice__checkbox {
+		appearance: none;
+		-webkit-appearance: none;
+
+		background-color: globals.$clr-light-100;
+		border: 1px solid globals.$clr-primary-600;
+		box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+		padding: 9px;
+		border-radius: 50%;
+		display: inline-block;
+		position: relative;
+		
+		&:active, &:checked:active {
+			box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+		}
+		
+		&:checked {
+			background-color: globals.$clr-primary-400;
+			border: 1px solid globals.$clr-primary-600;
+			box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+			color:  globals.$clr-primary-400;
+		}
+
+		&.ng-invalid.ng-touched {
+			background-color: globals.$clr-incorrect;
+			border: 1px solid globals.$clr-incorrect;
+		}
+
+		&[readonly] {
+			pointer-events: none;
+		}
+	}
+}
+
+.checkbox__choices .checkbox__choices__choice.incorrect {
+	background-color: globals.$clr-incorrect-opacity;
+}
+
+.checkbox__choices .checkbox__choices__choice.correct {
+	background-color: globals.$clr-correct-opacity;
+}
+
+.checkbox__choices.ng-submitted {
+	.checkbox__choices__choice__checkbox.ng-valid.ng-touched {
+		background-color: globals.$clr-correct;
+		border: 1px solid globals.$clr-correct;
+	}
+}
+
+.checkbox__choices .checkbox__choices__submit {
+	@include globals.button;
+}
+
+.checkbox__choices {
+	// Flexbox
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}

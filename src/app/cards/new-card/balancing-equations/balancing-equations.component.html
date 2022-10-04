@@ -1,0 +1,20 @@
+<p class="equation__label"></p>
+<form class="equation__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+	<div class="equation__questions">
+		<span *ngFor="let reactant of question.reactants; let i = index; let isLast = last" formArrayName="reactants">
+			<input type="number" [id]="'reactant-' + i" class="equation__question__input" [formControlName]="i">
+			<input type="text">
+			<span *ngIf="!isLast">$+$</span>
+		</span>
+		<span>{{ '$\\rightarrow$' }}</span>
+		<span *ngFor="let product of question.products; let i = index" formArrayName="products">
+			<input type="number" [id]="'product-' + i" class="equation__question__input" [formControlName]="i">
+			input type="text">
+		</span>
+	</div>
+	<div class="button__group">
+		<button type="submit" [disabled]="form.invalid">Submit</button>
+		<button type="reset" (click)="onReset(formQuestion, formExplaination)">Clear</button>
+	</div>
+</form>
+
