@@ -2,7 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Question } from 'src/app/question.model';
 import { AnswerStateService } from '../answer-state.service';
 import { BalancingChemicalEquationsQuestion } from '../../../../question.model';
-import { FormGroup, FormArray, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormArray, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { sleep } from 'src/app/utils';
 
 interface IForm {
@@ -32,10 +32,10 @@ export class BalancingChemicalEquationsComponent implements OnInit {
 		this.form = this.fb.group({
 			reactants: this.fb.array(Array<(number | null)[]>(this.question.reactants.length).fill(
 				[null as number | null]
-			)),
+			), [Validators.required, Validators.min(1)]),
 			products: this.fb.array(Array<(number | null)[]>(this.question.products.length).fill(
 				[null as number | null]
-			))
+			), [Validators.required, Validators.min(1)])
 		})
 	}
 		
