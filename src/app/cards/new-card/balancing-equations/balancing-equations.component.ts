@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
+import { QuestionsService } from '../../../questions.service';
 
 interface IForm {
 	reactants: FormArray<FormControl<string | null>>;
 	products: FormArray<FormControl<string | null>>;
-	answers: FormArray<FormControl<string | null>>;
+	reactantAnswers: FormArray<FormControl<number | null>>;
+	productAnswers: FormArray<FormControl<number | null>>;
 	explaination: FormControl<string | null>;
 	question: FormControl<string | null>;
 }
@@ -15,7 +17,11 @@ interface IForm {
   styleUrls: ['./balancing-equations.component.scss']
 })
 export class BalancingEquationsComponent implements OnInit {
-	constructor(private fb: FormBuilder) { }
+	constructor(
+		private fb: FormBuilder,
+		private questionsService: QuestionsService,
+		private renderer: Renderer2,
+	) { }
 	
 	form!: FormGroup<IForm>;
 
@@ -35,12 +41,75 @@ export class BalancingEquationsComponent implements OnInit {
 			products: this.fb.array([
 				[null as string | null]
 			]),
-			answers: this.fb.array([] as (string | null)[])
+			reactantAnswers: this.fb.array([
+				[null as number | null]
+			]),
+			productAnswers: this.fb.array([
+				[null as number | null]
+			]),
 		})
 	}
 
 	onSubmit() {
 		this.submission.emit();
+
+		this.questionsService.addBalancingChemicalEquationQuestion(
+			QuestionsService.createBalancingChemicalEquationQuestion({
+				answers: [
+					...this.reactantAnswers.value,
+					...this.productAnswers.value,
+				] as number[],
+				products: (this.products.value as string[]).map(s => `$${s}$`),
+				reactants: (this.reactants.value as string[]).map(s => `$${s}$`),
+				reactionType: 'yields',
+				question: this.question.value!,
+				explaination: this.explaination.value!,
+				tags: this.tags as string[],
+				subject: this.subject!,
+			})
+		)
+	}
+
+	onReset(...elements: HTMLTextAreaElement[]) {
+		this.form.reset();
+
+		this.formReset.emit();
+
+		elements.forEach(element => {
+			element.style.height = "",
+			element.innerHTML = "";
+		});
+	}
+
+	addReactant() {
+		this.reactants.push(
+			this.fb.control(null as string | null)
+		);
+		this.addReactantAnswer();
+	}
+
+	addProduct() {
+		this.products.push(
+			this.fb.control(null as string | null)
+		);
+		this.addProductAnswer();
+	}
+
+	addReactantAnswer() {
+		this.reactantAnswers.push(
+			this.fb.control(null as number | null)
+		);
+	}
+	
+	addProductAnswer() {
+		this.productAnswers.push(
+			this.fb.control(null as number | null)
+		);
+	}
+
+	onInput(element: HTMLTextAreaElement) {
+		this.renderer.setStyle(element, "height", ``)
+		this.renderer.setStyle(element, "height", `${element.scrollHeight}px`)
 	}
 
 	get explaination() {
@@ -59,8 +128,12 @@ export class BalancingEquationsComponent implements OnInit {
 		return this.form.controls.reactants;
 	}
 
-	get answers() {
-		return this.form.controls.answers;
+	get reactantAnswers() {
+		return this.form.controls.reactantAnswers;
+	}
+
+	get productAnswers() {
+		return this.form.controls.productAnswers;
 	}
 
 }
