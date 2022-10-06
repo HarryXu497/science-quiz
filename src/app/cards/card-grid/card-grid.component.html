@@ -1,3 +1,6 @@
 <div class="cards">
 	<app-card [type]="question.type" [question]="question" *ngFor="let question of questions$ | async"></app-card>
 </div>
+<div class="new-card">
+	<button class="new-card__button" title="Create a new question" [routerLink]="['/questions', 'new']">+</button>
+</div>

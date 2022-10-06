@@ -1,44 +1,45 @@
-<p class="equation__label"></p>
 <form class="equation__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-	<textarea class="form__question--question" type="text" formControlName="question" placeholder="Your Question Here" #formQuestion (input)="onInput(formQuestion)">
+	<div>
+		<textarea class="form__question--question" type="text" formControlName="question" placeholder="Your Question Here" #formQuestion (input)="onInput(formQuestion)">
 		
-	</textarea>
-	<div class="equation__questions">
-		<div class="equation__questions__reactants">
-			<div>
-				<div class="equation__questions__input-group">
-					<span *ngFor="let reactant of reactantAnswers.controls; let i = index; let isLast = last" formArrayName="reactantAnswers">
-						<input type="number" class="equation__question__input" [formControlName]="i">
-					</span>
+		</textarea>
+		<div class="equation__questions">
+			<div class="equation__questions__reactants">
+				<div>
+					<div class="equation__questions__input-group">
+						<span *ngFor="let reactant of reactantAnswers.controls; let i = index; let isLast = last" formArrayName="reactantAnswers">
+							<input type="number" class="equation__question__input" [formControlName]="i">
+						</span>
+					</div>
+					<div class="equation__questions__input-group">
+						<span *ngFor="let reactant of reactants.controls; let i = index; let isLast = last" formArrayName="reactants">
+							<input type="text" class="equation__question__input" [formControlName]="i">
+						</span>
+					</div>
 				</div>
-				<div class="equation__questions__input-group">
-					<span *ngFor="let reactant of reactants.controls; let i = index; let isLast = last" formArrayName="reactants">
-						<input type="text" class="equation__question__input" [formControlName]="i">
-					</span>
-				</div>
+				<button type="button" (click)="addReactant()">Add Reactant</button>
 			</div>
-			<button type="button" (click)="addReactant()">Add Reactant</button>
-		</div>
-		<span mathjax="$\rightarrow$"></span>
-		<div class="equation__questions__products">
-			<div>
-				<div class="equation__questions__input-group">
-					<span *ngFor="let reactant of productAnswers.controls; let i = index; let isLast = last" formArrayName="productAnswers">
-						<input type="number" class="equation__question__input" [formControlName]="i">
-					</span>
+			<span mathjax="$\rightarrow$"></span>
+			<div class="equation__questions__products">
+				<div>
+					<div class="equation__questions__input-group">
+						<span *ngFor="let reactant of productAnswers.controls; let i = index; let isLast = last" formArrayName="productAnswers">
+							<input type="number" class="equation__question__input" [formControlName]="i">
+						</span>
+					</div>
+					<div class="equation__questions__input-group">
+						<span *ngFor="let product of products.controls; let i = index" formArrayName="products">
+							<input type="text" class="equation__question__input" [formControlName]="i">
+						</span>
+					</div>
 				</div>
-				<div class="equation__questions__input-group">
-					<span *ngFor="let product of products.controls; let i = index" formArrayName="products">
-						<input type="text" class="equation__question__input" [formControlName]="i">
-					</span>
-				</div>
+				<button type="button" (click)="addProduct()">Add Product</button>
 			</div>
-			<button type="button" (click)="addProduct()">Add Product</button>
 		</div>
+		<textarea class="form__question--explaination" type="text" formControlName="explaination" placeholder="Your Explaination Here" #formExplaination (input)="onInput(formExplaination)">
+		
+		</textarea>
 	</div>
-	<textarea class="form__question--explaination" type="text" formControlName="explaination" placeholder="Your Explaination Here" #formExplaination (input)="onInput(formExplaination)">
-		
-	</textarea>
 	<div class="button__group">
 		<button type="submit" [disabled]="form.invalid">Submit</button>
 		<button type="reset" (click)="onReset(formQuestion, formExplaination)">Clear</button>

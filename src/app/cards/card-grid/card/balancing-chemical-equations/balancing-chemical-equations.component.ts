@@ -30,12 +30,12 @@ export class BalancingChemicalEquationsComponent implements OnInit {
 	
 	ngOnInit(): void {
 		this.form = this.fb.group({
-			reactants: this.fb.array(Array<(number | null)[]>(this.question.reactants.length).fill(
-				[null as number | null]
-			), [Validators.required, Validators.min(1)]),
-			products: this.fb.array(Array<(number | null)[]>(this.question.products.length).fill(
-				[null as number | null]
-			), [Validators.required, Validators.min(1)])
+			reactants: this.fb.array(Array<FormControl<(number | null)>>(this.question.reactants.length).fill(
+				this.fb.control(null as number | null, [Validators.required, Validators.min(1)])
+			)),
+			products: this.fb.array(Array<FormControl<(number | null)>>(this.question.products.length).fill(
+				this.fb.control(null as number | null, [Validators.required, Validators.min(1)])
+			))
 		})
 	}
 		

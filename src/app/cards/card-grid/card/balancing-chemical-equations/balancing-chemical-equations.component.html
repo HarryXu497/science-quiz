@@ -6,7 +6,7 @@
 			<span *ngFor="let reactant of question.reactants; let i = index; let isLast = last" formArrayName="reactants">
 				<input type="number" [id]="'reactant-' + i" class="equation__question__input" [formControlName]="i">
 				<label [for]="'reactant-' + i">
-					{{ reactant }}
+					{{ '$' + reactant + '$' }}
 				</label>
 				<span *ngIf="!isLast">$+$</span>
 			</span>
@@ -14,11 +14,11 @@
 			<span *ngFor="let product of question.products; let i = index" formArrayName="products">
 				<input type="number" [id]="'product-' + i" class="equation__question__input" [formControlName]="i">
 				<label [for]="'product-' + i">
-					{{ product }}
+					{{ '$' + product + '$' }}
 				</label>
 			</span>
 		</div>
-		<button class="equation__question__submit" *ngIf="answerStateService.isUnanswered">Submit</button>
+		<button class="equation__question__submit" *ngIf="answerStateService.isUnanswered" [disabled]="form.invalid">Submit</button>
 	</form>
 </ng-template>
 <ng-template #answerTemplate>
