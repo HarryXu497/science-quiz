@@ -5,12 +5,13 @@
 		</textarea>
 		<div formGroupName="choices">
 			<div
+				(click)="onAnswerSelect(i)"
 				class="form__question__choices__choice"
 				*ngFor="let choice of [].constructor(4); let isLast = last; let i = index"
 				[class.show-border-bottom-color]="isLast"
 				>
-				<input class="form__question__choices__choice" type="text" [formControlName]="i" [id]="'checkbox-' + i">
-				<input class="form__question__choices__choice__checkbox" type="checkbox" [id]="'checkbox-' + i" (click)="onAnswerSelect(i)">
+				<input class="form__question__choices__choice" type="text" [formControlName]="i" [id]="'checkbox-' + i" [placeholder]="'Answer ' + (i + 1)">
+				<input class="form__question__choices__choice__checkbox" type="checkbox" [id]="'checkbox-' + i">
 			</div>
 		</div>
 		<textarea class="form__question--explaination" type="text" formControlName="explaination" placeholder="Your Explaination Here" #formExplaination (input)="onInput(formExplaination)">

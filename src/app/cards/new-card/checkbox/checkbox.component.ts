@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Choices, MultipleChoiceQuestionChoices } from 'src/app/question.model';
+import { Choices, MultipleChoiceQuestionChoices, MultipleChoiceQuestionIndicies } from 'src/app/question.model';
 import { QuestionsService } from '../../../questions.service';
 
 interface IForm {
 	question: FormControl<string | null>;
 	explaination: FormControl<string | null>;
 	choices: FormArray<FormControl<string | null>>;
-	answers: FormArray<FormControl<MultipleChoiceQuestionChoices | null>>;
+	answers: FormArray<FormControl<MultipleChoiceQuestionIndicies | null>>;
 }
 
 @Component({
@@ -40,19 +40,20 @@ export class CheckboxComponent implements OnInit {
 				[null as string | null],
 				[null as string | null],
 			]),
-			answers: this.fb.array([] as (MultipleChoiceQuestionChoices | null)[])
+			answers: this.fb.array([] as (MultipleChoiceQuestionIndicies | null)[])
 		})
 	}
 
-	onAnswerSelect(index: number) {
-		const key = this.getKey(index);
+	onAnswerSelect(_index: number) {
+		if (!(0 <= _index && _index <= 3)) throw new Error("index must be either 0, 1, 2, or 3");
+		const index = _index as 0 | 1 | 2 | 3;
 		const answers = this.form.controls.answers.value;
 
-		if (answers.some(value => value === key)) {
-			answers.splice(answers.indexOf(key), 1)
+		if (answers.some(value => value === index)) {
+			answers.splice(answers.indexOf(index), 1)
 		}
 		else {
-			answers.push(key)
+			answers.push(index)
 		}
 	}
 
@@ -69,7 +70,7 @@ export class CheckboxComponent implements OnInit {
 			subject: this.subject!.toLowerCase(),
 			tags: (this.tags as string[]).map(s => s.toLowerCase()),
 			explaination: this.explaination.value!,
-			answers: this.answers.value as MultipleChoiceQuestionChoices[],
+			answers: ((this.answers.value).map(index => this.getKey(index!)) as MultipleChoiceQuestionChoices[]),
 			choices: choices
 		}))
 
@@ -81,7 +82,7 @@ export class CheckboxComponent implements OnInit {
 		this.renderer.setStyle(element, "height", `${element.scrollHeight}px`)
 	}
 
-	getKey(index: number) {
+	getKey(index: MultipleChoiceQuestionIndicies) {
 		switch (index) {
 			case 0: {
 				return 'A'
@@ -99,6 +100,7 @@ export class CheckboxComponent implements OnInit {
 
 		throw new Error("key not found");
 	}
+
 
 	onReset(...elements: HTMLTextAreaElement[]) {
 		this.form.reset();

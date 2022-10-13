@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Observable, takeUntil } from 'rxjs';
 import { Question } from '../../question.model';
 import { QuestionsService } from '../../questions.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
