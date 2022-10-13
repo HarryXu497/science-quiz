@@ -30,13 +30,21 @@ export class BalancingChemicalEquationsComponent implements OnInit {
 	
 	ngOnInit(): void {
 		this.form = this.fb.group({
-			reactants: this.fb.array(Array<FormControl<(number | null)>>(this.question.reactants.length).fill(
-				this.fb.control(null as number | null, [Validators.required, Validators.min(1)])
-			)),
-			products: this.fb.array(Array<FormControl<(number | null)>>(this.question.products.length).fill(
-				this.fb.control(null as number | null, [Validators.required, Validators.min(1)])
-			))
+			reactants: this.fb.array([] as (number | null)[]),
+			products: this.fb.array([] as (number | null)[])
 		})
+
+		for (let i = 0; i < this.question.reactants.length; i++) {
+			this.reactants.push(
+				this.fb.control(null as number | null, [Validators.required, Validators.min(1)])
+			)
+		} 
+
+		for (let i = 0; i < this.question.products.length; i++) {
+			this.products.push(
+				this.fb.control(null as number | null, [Validators.required, Validators.min(1)])
+			)
+		} 
 	}
 		
 	ngOnChanges(changes: SimpleChanges) {
@@ -45,6 +53,7 @@ export class BalancingChemicalEquationsComponent implements OnInit {
 
 	async onSubmit() {
 		const inputs = [...this.reactants.value, ...this.products.value]
+
 		const valid = inputs.every((val, idx) => {
 			return val === this.question.answers[idx];
 		})

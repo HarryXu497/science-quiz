@@ -45,3 +45,4 @@ export interface Choices {
 }
 export type QuestionType = 'multiple-choice' | 'checkbox' | 'balancing-chemical-equations'; 
 export type MultipleChoiceQuestionChoices = 'A' | 'B' | 'C' | 'D';
+export type MultipleChoiceQuestionIndicies = 0 | 1 | 2 | 3;
