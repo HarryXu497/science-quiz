@@ -66,6 +66,8 @@
 	align-items: center;
 
 	li {
+		isolation: isolate;
+
 		// Position
 		position: relative;
 
@@ -82,22 +84,57 @@
 		// Mouse
 		&:hover {
 			cursor: pointer;
+
+			// Color
+			color: white;
+
+			&::before {
+				animation: slide 200ms 1;
+
+				// Sizing
+				width: 100%;
+
+				z-index: 0;
+
+				content: "Sign In";
+			}
 		}
 
 		// Font
 		font-size: var(--link-font-size);
 
 		&::before {
+			white-space: nowrap;
 			content: "";
+
+			// Flexbox
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
 
 			// Position
 			position: absolute;	
 			inset: 0;
+
+			// Sizing
+			width: 0%;
+
+			z-index: 0;
+
 			
 			background-color: globals.$clr-primary-400;
 		}
 	}
-		
+}
 
-
+@keyframes slide {
+	from {
+		content: "";
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+		content: "Sign In";
+	}
 }
