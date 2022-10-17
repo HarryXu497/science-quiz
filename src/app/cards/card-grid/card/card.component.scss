@@ -44,6 +44,10 @@
 			background-color: globals.$clr-incorrect;
 		}
 	}
+
+	&.ng-animating *:not(.card__state-color) {
+		display: none;
+	}
 }
 
 @keyframes slide-transition {
