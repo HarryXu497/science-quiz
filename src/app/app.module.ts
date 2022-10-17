@@ -13,12 +13,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubscriptAndSuperscriptsDirective } from './shared/subscript-and-superscripts.directive';
+import { QuizComponent } from './quiz/quiz.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SubscriptAndSuperscriptsDirective,
+    QuizComponent,
   ],
   imports: [
     BrowserModule,

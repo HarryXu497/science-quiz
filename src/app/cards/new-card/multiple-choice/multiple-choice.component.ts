@@ -3,12 +3,13 @@ import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@ang
 import { Observable } from 'rxjs';
 import { Choices, MultipleChoiceQuestionChoices } from 'src/app/question.model';
 import { QuestionsService } from '../../../questions.service';
+import { MultipleChoiceQuestionIndicies } from '../../../question.model';
 
 interface IForm {
 	question: FormControl<string | null>;
 	explaination: FormControl<string | null>;
 	choices: FormArray<FormControl<string | null>>;
-	answer: FormControl<MultipleChoiceQuestionChoices | null>;
+	answer: FormControl<MultipleChoiceQuestionIndicies | null>;
 }
 
 @Component({
@@ -42,7 +43,7 @@ export class MultipleChoiceComponent implements OnInit {
 				[null as string | null],
 				[null as string | null],
 			]),
-			answer: [null as MultipleChoiceQuestionChoices | null, Validators.required]
+			answer: [null as MultipleChoiceQuestionIndicies | null, Validators.required]
 		})
 	}
 
@@ -51,8 +52,17 @@ export class MultipleChoiceComponent implements OnInit {
 		this.renderer.setStyle(element, "height", `${element.scrollHeight}px`)
 	}
 
-	onAnswerSelect(index: number) {
-		this.answer.setValue(this.getKey(index))
+	onAnswerSelect(_index: number) {
+		if (!(0 <= _index && _index <= 3)) throw new Error("index must be either 0, 1, 2, or 3");
+		const index = _index as 0 | 1 | 2 | 3;
+		this.answer.setValue(index)
+	}
+
+	isChecked(_index: number) {
+		const index = _index as 0 | 1 | 2 | 3;
+		const answer = this.form.controls.answer.value;
+
+		return index === answer;
 	}
 
 	async onSubmit() {
@@ -68,7 +78,7 @@ export class MultipleChoiceComponent implements OnInit {
 			subject: this.subject!.toLowerCase(),
 			tags: (this.tags as string[]).map(s => s.toLowerCase()),
 			explaination: this.explaination.value!,
-			answer: this.answer.value!,
+			answer: this.getKey(this.answer.value!),
 			choices: choices
 		}))
 

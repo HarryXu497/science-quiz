@@ -3,6 +3,7 @@ import { Subject, Observable, takeUntil } from 'rxjs';
 import { Question } from '../../question.model';
 import { QuestionsService } from '../../questions.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
 @Component({
   selector: 'app-cards',
@@ -11,7 +12,10 @@ import { Router } from '@angular/router';
   animations: []
 })
 export class CardGridComponent implements OnInit, OnDestroy {
-	constructor(private questionsService: QuestionsService) {}
+	constructor(
+		private questionsService: QuestionsService,
+		public auth: AuthenticationService,	
+	) {}
 	
 	onDestroy$: Subject<void> = new Subject();
 

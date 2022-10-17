@@ -48,13 +48,20 @@ export class CheckboxComponent implements OnInit {
 		if (!(0 <= _index && _index <= 3)) throw new Error("index must be either 0, 1, 2, or 3");
 		const index = _index as 0 | 1 | 2 | 3;
 		const answers = this.form.controls.answers.value;
-
+		
 		if (answers.some(value => value === index)) {
 			answers.splice(answers.indexOf(index), 1)
 		}
 		else {
 			answers.push(index)
 		}
+	}
+
+	isChecked(_index: number) {
+		const index = _index as 0 | 1 | 2 | 3;
+		const answers = this.form.controls.answers.value;
+
+		return answers.includes(index)
 	}
 
 	async onSubmit() {
@@ -97,8 +104,6 @@ export class CheckboxComponent implements OnInit {
 				return'D'
 			}
 		}
-
-		throw new Error("key not found");
 	}
 
 

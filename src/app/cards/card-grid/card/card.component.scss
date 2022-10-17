@@ -22,6 +22,8 @@
 	overflow: hidden;
 
 	.card__state-color {
+		transition: all 200ms ease-in;
+
 		// Position
 		position: absolute;
 		bottom: 0;
@@ -41,12 +43,15 @@
 		&.incorrect {
 			background-color: globals.$clr-incorrect;
 		}
+	}
+}
 
-		// Content
-		content: "";
+@keyframes slide-transition {
+	from {
+		width: 0%;
 	}
 
-	&.ng-animating * {
-		display: none;
+	to {
+		width: 100%;
 	}
 }

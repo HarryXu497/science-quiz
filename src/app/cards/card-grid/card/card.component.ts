@@ -15,7 +15,7 @@ import { AnswerStateService } from './answer-state.service';
 				transform: "rotateX(180deg)"
 			}))
 		)
-	])
+	]),
   ]
 })
 export class CardComponent {

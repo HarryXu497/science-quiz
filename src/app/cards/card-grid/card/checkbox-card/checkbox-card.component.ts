@@ -50,9 +50,6 @@ export class CheckboxCardComponent implements OnInit {
 	}
 
 	async onSubmit() {
-		// Disable controls
-		// this.answers.disable();
-
 		const keys = (<MultipleChoiceQuestionChoices[]> Object.keys(this.question.choices)).sort()
 		const answers = new Set(this.question.answers)
 
