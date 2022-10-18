@@ -60,6 +60,7 @@
 	// Flexbox
 	display: flex;
 	flex-direction: column;
+	gap: 0.125rem;
 
 	> input {
 		font-size: var(--auth-form-input-font-size);
@@ -67,14 +68,35 @@
 		padding: 0.25rem;
 		border-radius: 2px;
 		border: 1px solid black;
+		margin: 1px;
 
 		color: black;
+
+		&.ng-valid.ng-dirty {
+			border-width: 2px;
+			border-color: globals.$clr-correct;
+			margin: 0;
+		}
+
+		&.ng-invalid.ng-dirty {
+			border-width: 2px;
+			border-color: globals.$clr-incorrect;
+			margin: 0;
+		}
+
+		&:focus {
+			outline: none;
+		}
 	}
+}
+.auth-card__form .auth-card__form__error-message {
+	--auth-form-error-message-font-size: 0.875rem;
+	font-size: var(--auth-form-error-message-font-size);
+
+	color: globals.$clr-incorrect;
 }
 
 .auth-card__form .auth-card__form__button-group {
-	margin-top: 0.75rem;
-
 	display: flex;
 	flex-direction: row;
 
