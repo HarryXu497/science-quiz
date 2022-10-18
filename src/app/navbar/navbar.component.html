@@ -1,8 +1,8 @@
 <nav class="navbar">
 	<ul class="navbar__links">
-		<li [routerLink]="['/questions']">Questions</li>
+		<li [routerLink]="['/questions']" [routerLinkActive]="['active-link']" [routerLinkActiveOptions]="{ exact: true }">Questions</li>
 		<li class="navbar__logo">Science</li>
-		<li [routerLink]="['/quizzes']">Quizzes</li>
+		<li [routerLink]="['/quizzes']" [routerLinkActive]="['active-link']" [routerLinkActiveOptions]="{ exact: true }">Quizzes</li>
 	</ul>
 	<ul class="navbar__auth">
 		<li [routerLink]="['/auth', 'sign-in']">Sign In</li>

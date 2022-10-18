@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FirebaseError } from '@angular/fire/app';
 
 export type AuthMode = 'sign-in' | 'sign-up';
 
@@ -24,6 +25,7 @@ export class AuthenticationComponent implements OnInit {
 
 	mode!: AuthMode
 	form!: FormGroup<IForm>;
+	message: string | null = null;
 
 	ngOnInit() {
 		this.route.data.subscribe(data => this.mode = data["authMode"]);
@@ -37,16 +39,43 @@ export class AuthenticationComponent implements OnInit {
 	async onSubmit() {
 		if (this.email.value === null || this.password.value === null) throw new Error("Email and password must be provided");
 
-		await this.signInWithEmailAndPassword(this.email.value, this.password.value);
+		try {
+			if (this.mode === 'sign-in') {
+				await this.auth.signInWithEmailAndPassword(this.email.value, this.password.value);
+			}
+			if (this.mode === 'sign-up') {
+				await this.auth.signUpWithEmailAndPassword(this.email.value, this.password.value);
+			}
+		}
+		catch (_error: unknown) {
+			const error = _error as FirebaseError;
+			this.message = this.matchErrorMessage(error);
+		}
+
+		this.form.reset();
+	}
+
+	private matchErrorMessage(error: FirebaseError): string {
+		console.log(error.code)
+		switch (error.code) {
+			case 'auth/invalid-email': {
+				return "The email is badly formatted.";
+			}
+			case 'auth/user-not-found': {
+				return "There is no user record corresponding to this identifier.";
+			}
+			case 'auth/wrong-password': {
+				return "The password is invalid or the user does not have a password.";
+			}
+		}
+
+
+		return error.message;
 	}
 
 
 	async signInWithGooglePopup() {
 		await this.auth.signInWithGooglePopup();
-	}
-
-	async signInWithEmailAndPassword(email: string, password: string) {
-		await this.auth.signInWithEmailAndPassword(email, password);
 	}
 
 	async signOut() {

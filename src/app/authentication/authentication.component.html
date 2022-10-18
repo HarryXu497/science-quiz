@@ -8,9 +8,27 @@
 			<label for="password">Password</label>
 			<input type="password" id="password" formControlName="password" placeholder="Password">
 		</div>
-		<div class="auth-card__form__button-group">
-			<button type="submit">Submit</button>
-			<button type="button">Cancel</button>
+		<span class="auth-card__form__error-message" *ngIf="message">
+			{{ message }}
+		</span>
+		<div class="auth-card__form__button-group" [style.marginTop]="message ? '0rem' : '0.75rem'">
+			<button 
+				type="submit"
+				[disabled]="form.invalid">
+				Submit
+			</button>
+			<button
+				type="button"
+				[routerLink]="['/auth', 'sign-up']"
+				*ngIf="mode === 'sign-in'">
+				Sign Up
+			</button>
+			<button
+				type="button"
+				[routerLink]="['/auth', 'sign-in']"
+				*ngIf="mode === 'sign-up'">
+				Sign In
+			</button>
 		</div>
 	</form>
 	<div class="auth-card__state-color"></div>
