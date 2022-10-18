@@ -48,6 +48,14 @@ export class AuthenticationService {
 		return this.updateUserData(credential.user);
 	}
 
+	async signUpWithEmailAndPassword(email: string, password: string) {
+		const credential = await this.auth.createUserWithEmailAndPassword(email, password)
+
+		if (!credential.user) throw new Error("Cannot sign in with email and password popup.")
+
+		return this.updateUserData(credential.user);
+	}
+
 
 	async signOut() {
 		await this.auth.signOut();

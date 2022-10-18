@@ -1,2 +1,19 @@
-<button (click)="logInWithGooglePopup()">Log In</button>
+<div class="auth-card">
+	<form class="auth-card__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+		<div class="auth-card__form__input auth-card__form__input--email">
+			<label for="email">Email</label>
+			<input type="email" id="email" formControlName="email" placeholder="Email">
+		</div>		
+		<div class="auth-card__form__input auth-card__form__input--password">
+			<label for="password">Password</label>
+			<input type="password" id="password" formControlName="password" placeholder="Password">
+		</div>
+		<div class="auth-card__form__button-group">
+			<button type="submit">Submit</button>
+			<button type="button">Cancel</button>
+		</div>
+	</form>
+	<div class="auth-card__state-color"></div>
+</div>
+<button (click)="signInWithGooglePopup()">Log In</button>
 <button (click)="signOut()">Sign Out</button>
