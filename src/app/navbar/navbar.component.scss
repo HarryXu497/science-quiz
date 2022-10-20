@@ -40,9 +40,29 @@
 	// Font
 	font-size: var(--link-font-size);
 
-	// Mouse
-	&:hover {
-		cursor: pointer;
+	> li {
+		// Position
+		position: relative;
+
+		// Mouse
+		&:hover {
+			cursor: pointer;
+
+		}
+	}
+
+	> li:not(.navbar__logo):not(.active-link):hover {
+		&::before {
+			content: "";
+			position: absolute;
+	
+			width: 100%;
+			height: 0.4rem;
+	
+			bottom: 0;
+			
+			background-color: rgba(globals.$clr-primary-400, 0.125);
+		}
 	}
 }
 

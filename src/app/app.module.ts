@@ -11,17 +11,16 @@ import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomePageComponent } from './home-page/home-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubscriptAndSuperscriptsDirective } from './shared/subscript-and-superscripts.directive';
-import { QuizComponent } from './quiz/quiz.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SubscriptAndSuperscriptsDirective,
-    QuizComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
