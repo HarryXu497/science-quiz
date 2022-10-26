@@ -12,7 +12,7 @@ import { AnswerStateService } from './answer-state.service';
 	trigger('answered', [
 		transition("question => answer", 
 			animate(`800ms`, style({
-				transform: "rotateY(180deg)"
+				transform: "rotateX(180deg)"
 			}))
 		)
 	]),

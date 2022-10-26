@@ -45,7 +45,7 @@
 		}
 	}
 
-	&.ng-animating *:not(.card__state-color) {
+	&.ng-animating * {
 		display: none;
 	}
 }
