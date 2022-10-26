@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { FirebaseError } from '@angular/fire/app';
@@ -20,6 +20,7 @@ export class AuthenticationComponent implements OnInit {
 	constructor(
 		private auth: AuthenticationService,
 		private route: ActivatedRoute,
+		private router: Router,
 		private fb: FormBuilder,
 	) { }
 
@@ -39,6 +40,10 @@ export class AuthenticationComponent implements OnInit {
 	async onSubmit() {
 		if (this.email.value === null || this.password.value === null) throw new Error("Email and password must be provided");
 
+		console.log(this.mode)
+
+		let errorThrown = false;
+
 		try {
 			if (this.mode === 'sign-in') {
 				await this.auth.signInWithEmailAndPassword(this.email.value, this.password.value);
@@ -50,9 +55,12 @@ export class AuthenticationComponent implements OnInit {
 		catch (_error: unknown) {
 			const error = _error as FirebaseError;
 			this.message = this.matchErrorMessage(error);
+			
+			errorThrown = true;
 		}
 
 		this.form.reset();
+		if (!errorThrown) this.router.navigate(['/questions']);
 	}
 
 	private matchErrorMessage(error: FirebaseError): string {
