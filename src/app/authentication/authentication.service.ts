@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, of, switchMap } from 'rxjs';
-import { IUser, IUserFirebaseDocument } from '../user.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { AuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { Router } from '@angular/router';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { Observable, of, switchMap, tap } from 'rxjs';
 import { Question } from '../question.model';
+import { IUser, IUserFirebaseDocument } from '../user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ import { Question } from '../question.model';
 export class AuthenticationService {
 
 	user$: Observable<IUser | null>
+	user: IUser | null = null;
 
   	constructor(
 		private auth: AngularFireAuth,
@@ -27,8 +28,13 @@ export class AuthenticationService {
 				else {
 					return of(null);
 				}
-			})
+			}),
+			// set `user` property to most recent value of `user$`
 		) as Observable<IUser | null>);
+
+		this.user$.pipe(
+			tap(user => this.user = user)
+		)
 	}
 
 	async signInWithGooglePopup() {
