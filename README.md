@@ -1,6 +1,6 @@
 # ScienceQuiz
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
+This project is a website that contains flash cards for a variety of questions. It contains support for a vriety of questions, including balancing chemical equations with LaTex
 
 ## Development server
 
